@@ -47,7 +47,16 @@ namespace NDis86
                         NativeUDis86.ud_insn_mnemonic(pUD),
                         withHex ? MarshalZString(NativeUDis86.ud_insn_hex(pUD)) : null,
                         withAssembly ? MarshalZString(NativeUDis86.ud_insn_asm(pUD)) : null,
-                        GetOperands(pUD)));
+                        GetOperands(pUD),
+                        pUD->pfx_rex,
+                        (OperandType)pUD->pfx_seg,
+                        pUD->pfx_opr == 0x66,
+                        pUD->pfx_adr == 0x67,
+                        pUD->pfx_lock,
+                        pUD->pfx_str,
+                        pUD->pfx_rep,
+                        pUD->pfx_repe,
+                        pUD->pfx_repne));
                 }
             }
             return result;
