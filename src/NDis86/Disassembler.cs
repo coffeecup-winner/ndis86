@@ -9,7 +9,7 @@ namespace NDis86
     {
         private readonly UD[] _ud = new UD[1];
 
-        public Disassembler(DisassemblyMode mode = DisassemblyMode.Mode32Bit, DisassemblySyntax? syntax = null)
+        public Disassembler(DisassemblyMode mode = DisassemblyMode.Mode32Bit, DisassemblySyntax? syntax = null, ulong pc = 0)
         {
             IntPtr translate;
             switch (syntax)
@@ -30,6 +30,7 @@ namespace NDis86
                 NativeUDis86.ud_init(pUD);
                 NativeUDis86.ud_set_mode(pUD, (byte)mode);
                 NativeUDis86.ud_set_syntax(pUD, translate);
+                NativeUDis86.ud_set_pc(pUD, pc);
             }
         }
 
