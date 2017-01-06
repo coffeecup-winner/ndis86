@@ -38,6 +38,11 @@ namespace NDis86
         public byte PrefixRep { get; }
         public byte PrefixRepe { get; }
         public byte PrefixRepne { get; }
+
+        public override string ToString()
+        {
+            return Assembly ?? Code.ToString();
+        }
     }
 
     public class Operand
