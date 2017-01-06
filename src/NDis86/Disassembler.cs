@@ -36,11 +36,16 @@ namespace NDis86
 
         public IReadOnlyList<Instruction> Disassemble(byte[] asm, bool withHex = false, bool withAssembly = false)
         {
+            return Disassemble(asm, 0, asm.Length, withHex, withAssembly);
+        }
+
+        public IReadOnlyList<Instruction> Disassemble(byte[] asm, int offset, int length, bool withHex = false, bool withAssembly = false)
+        {
             var result = new List<Instruction>();
             fixed (UD* pUD = _ud)
             fixed (byte* pAsm = asm)
             {
-                NativeUDis86.ud_set_input_buffer(pUD, pAsm, (uint)asm.Length);
+                NativeUDis86.ud_set_input_buffer(pUD, pAsm + offset, (uint)length);
                 while (NativeUDis86.ud_disassemble(pUD) != 0)
                 {
                     result.Add(new Instruction(
