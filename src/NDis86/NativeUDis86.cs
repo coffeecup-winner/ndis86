@@ -1116,7 +1116,13 @@ namespace NDis86
     public static unsafe class NativeUDis86
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int InputHookDelegate(UD* ud);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void TranslateDelegate(UD* ud);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate byte* SymResolveDelegate(UD* ud, ulong addr, out long offset);
 
         [DllImport("libudis86", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ud_init(UD* ud);
@@ -1133,8 +1139,8 @@ namespace NDis86
         [DllImport("libudis86", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ud_set_input_buffer(UD* ud, byte* buf, uint size);
 
-        // [DllImport("libudis86", CallingConvention = CallingConvention.Cdecl)]
-        // public static extern void ud_set_input_file(UD* ud, IntPtr file);
+        [DllImport("libudis86", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ud_set_input_file(UD* ud, IntPtr file);
 
         [DllImport("libudis86", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ud_set_vendor(UD* ud, uint vendor);
@@ -1199,7 +1205,7 @@ namespace NDis86
         [DllImport("libudis86", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ud_set_asm_buffer(UD* ud, byte* buf, uint size);
 
-        // [DllImport("libudis86", CallingConvention = CallingConvention.Cdecl)]
-        // public static extern void ud_set_sym_resolver(UD* ud, const char* (*resolver)(UD* ud, uint64_t addr, int64_t *offset));
+        [DllImport("libudis86", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ud_set_sym_resolver(UD* ud, IntPtr resolver);
     }
 }
