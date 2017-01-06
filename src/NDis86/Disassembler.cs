@@ -8,28 +8,23 @@ namespace NDis86
     public unsafe class Disassembler
     {
         private readonly UD[] _ud = new UD[1];
+        private readonly NativeUDis86.TranslateDelegate _translate; // this delegate must not be garbage collected while _ud is in use
 
         public Disassembler(DisassemblyMode mode = DisassemblyMode.Mode32Bit, DisassemblySyntax? syntax = null, ulong pc = 0)
         {
-            IntPtr translate;
             switch (syntax)
             {
-                case DisassemblySyntax.Intel:
-                    translate = Marshal.GetFunctionPointerForDelegate<NativeUDis86.TranslateDelegate>(NativeUDis86.ud_translate_intel);
-                    break;
-                case DisassemblySyntax.ATT:
-                    translate = Marshal.GetFunctionPointerForDelegate<NativeUDis86.TranslateDelegate>(NativeUDis86.ud_translate_att);
-                    break;
-                case null:
-                    translate = IntPtr.Zero;
-                    break;
+                case DisassemblySyntax.Intel: _translate = NativeUDis86.ud_translate_intel; break;
+                case DisassemblySyntax.ATT: _translate = NativeUDis86.ud_translate_att; break;
+                case null: break;
                 default: throw new ArgumentException();
             }
+
             fixed (UD* pUD = _ud)
             {
                 NativeUDis86.ud_init(pUD);
                 NativeUDis86.ud_set_mode(pUD, (byte)mode);
-                NativeUDis86.ud_set_syntax(pUD, translate);
+                NativeUDis86.ud_set_syntax(pUD, _translate == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate(_translate));
                 NativeUDis86.ud_set_pc(pUD, pc);
             }
         }
