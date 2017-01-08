@@ -25,7 +25,7 @@ namespace NDis86
         }
 
         public ulong Offset { get; }
-        MnemonicCode Code { get; }
+        public MnemonicCode Code { get; }
         public string Hex { get; }
         public string Assembly { get; }
         public IReadOnlyList<Operand> Operands { get; }
