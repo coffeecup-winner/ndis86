@@ -29,6 +29,14 @@ namespace NDis86
             }
         }
 
+        public void SetPC(ulong pc)
+        {
+            fixed (UD* pUD = _ud)
+            {
+                NativeUDis86.ud_set_pc(pUD, pc);
+            }
+        }
+
         public IReadOnlyList<Instruction> Disassemble(byte[] asm, bool withHex = false, bool withAssembly = false)
         {
             return Disassemble(asm, 0, asm.Length, withHex, withAssembly);
