@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.7">
     <id>NDis86</id>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <authors>Dmitry Polyanitsa</authors>
     <owners>Dmitry Polyanitsa</owners>
     <licenseUrl>https://github.com/coffeecup-winner/ndis86/blob/master/LICENSE</licenseUrl>
@@ -10,9 +10,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET wrapper for udis86</description>
     <releaseNotes>
-Version 1.0
-  - Full native interface wrapper
-  - Managed disassembler class for typical disassembly workflow
+Version 1.0.1
+  - Expose more properties/methods in the managed wrapper
     </releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>udis86 x86 asm assembly disasm disassembly wrapper bindings</tags>
