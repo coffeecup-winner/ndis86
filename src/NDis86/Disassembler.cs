@@ -46,6 +46,7 @@ namespace NDis86
                     result.Add(new Instruction(
                         NativeUDis86.ud_insn_off(pUD),
                         NativeUDis86.ud_insn_mnemonic(pUD),
+                        (byte)NativeUDis86.ud_insn_len(pUD),
                         withHex ? MarshalZString(NativeUDis86.ud_insn_hex(pUD)) : null,
                         withAssembly ? MarshalZString(NativeUDis86.ud_insn_asm(pUD)) : null,
                         GetOperands(pUD),

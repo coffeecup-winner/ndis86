@@ -4,12 +4,13 @@ namespace NDis86
 {
     public class Instruction
     {
-        public Instruction(ulong offset, MnemonicCode code, string hex, string assembly, IReadOnlyList<Operand> operands,
+        public Instruction(ulong offset, MnemonicCode code, byte length, string hex, string assembly, IReadOnlyList<Operand> operands,
             byte prefixRex, OperandType prefixSegment, bool prefixOperandSize, bool prefixAddressSize, byte prefixLock,
             byte prefixStr, byte prefixRep, byte prefixRepe, byte prefixRepne)
         {
             Offset = offset;
             Code = code;
+            Length = length;
             Hex = hex;
             Assembly = assembly;
             Operands = operands;
@@ -26,6 +27,7 @@ namespace NDis86
 
         public ulong Offset { get; }
         public MnemonicCode Code { get; }
+        public byte Length { get; }
         public string Hex { get; }
         public string Assembly { get; }
         public IReadOnlyList<Operand> Operands { get; }
